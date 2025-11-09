@@ -8,6 +8,7 @@ a.out
 a.out.dSYM
 # .main.c
 # .test.c
+# .monotest.c
 
 # .src
 # .src/
