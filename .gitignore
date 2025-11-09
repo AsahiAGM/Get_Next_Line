@@ -1,0 +1,20 @@
+# secret
+.vscode
+.vscode/
+.envrc
+
+# debug files
+a.out
+a.out.dSYM
+# .main.c
+# .test.c
+
+# .src
+# .src/
+# .srcA.txt
+# .srcB.txt
+# .srcC.txt
+
+# extra files
+*.o
+*.a

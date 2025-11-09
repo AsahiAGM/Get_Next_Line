@@ -1,0 +1,4 @@
+Hello, world!!
+kore ha get_next_line no test you file desu
+in   
+srcA
