@@ -1,7 +1,8 @@
 # Get_Next_Line
-## 構成メモ
+## 開発メモ
 1. `static char *remainder;`
 ファイルディスクリプタごとに 読み残しを保持する役割
+
 1回の read で取得したデータが改行までに達していない場合や、改行後の残りを保持するために使われます。
 staticを持ちることにより、次回 get_next_line 呼び出し時にも続きから読み出せます
 
@@ -19,8 +20,11 @@ read を繰り返し、BUFFER_SIZE 分ずつ読み込み、remainder に追加�
 標準的なパターンでは、
 ```bash
 malloc でバッファを確保
+↓
 read(fd, buf, BUFFER_SIZE) をループ
+↓
 改行('\n')が見つかったらそこで停止
+↓
 以前の remainder と結合
 ```
 という流れになります。
