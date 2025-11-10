@@ -14,6 +14,6 @@ char	*get_next_line(int fd);
 char	*read_and_store(int fd, char *remainder);
 char	*extract_line(char *remainder);
 char	*update_remainder(char *remainder);
-size_t	ft_strlcat(char *dst, char const *src, size_t size);
+char	*ft_strjoin(const char *s1, const char *s2);
 
 #endif

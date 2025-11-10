@@ -19,8 +19,7 @@ char *read_line_from_file(int file_index, t_file_state *files, int file_count)
     if (file_index < 0 || file_index >= file_count)
         return NULL;
     if (files[file_index].eof)
-        return NULL;
-
+        return NULL;    
     char *line = get_next_line(files[file_index].fd);
     if (!line)
         files[file_index].eof = 1;

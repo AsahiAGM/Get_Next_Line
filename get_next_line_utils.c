@@ -1,48 +1,71 @@
 #include "get_next_line.h"
 
+/*
+* Read from file until a newline or EOF is found,
+* and append the read content to the given pointer.
+* @param fd         file id
+* @param *remainder buffer of reading char
+* @return new remainder
+*/
 char	*read_and_store(int fd, char *remainder)
 {
-    char    *buf;
+    char    buf[BUFFER_SIZE + 1];
     char    ch;
     int     i;
 
-    buf = malloc(sizeof(char) * BUFFER_SIZE);
-    if (!buf)
-        return (NULL);
     i = 0;
     while (i < BUFFER_SIZE)
     {
         ch = read(fd, buf[i], 1);
         if (ch == '\n')
-            return (buf);
+            break;;
         i++;
     }
     if (!remainder)
     {
-        remainder= malloc(sizeof(char) * REMAINDER_SIZE + 1);
+        remainder = malloc(1);
         if (!remainder)
             return (NULL);
+        remainder[0] = '\0';
     }
-    ft_strlcat(remainder, buf, REMAINDER_SIZE);
-    return (buf);
+    remainder = ft_strjoin(remainder, buf);
+    return (remainder);
 }
 
-size_t	ft_strlcat(char *dst, char const *src, size_t size)
+char	*ft_strjoin(const char *s1, const char *s2)
 {
-	size_t	str_len;
-	int		i;
+	char	*newstr;
+	size_t	i;
+	size_t	j;
 
-	str_len = 0;
-	while (src[str_len])
-		str_len++;
-	if (REMAINDER_SIZE >= size)
-		return (size + str_len);
+	if (!s1 || !s2)
+		return (NULL);
+	newstr = (char *)malloc(sizeof(char) * (ft_strlen((char *)s1)
+				+ ft_strlen((char *)s2) + 1));
+	if (!newstr)
+		return (NULL);
 	i = 0;
-	while (src[i] && REMAINDER_SIZE + i + 1 < size)
+	while (s1[i])
 	{
-		dst[REMAINDER_SIZE + i] = src[i];
+		newstr[i] = s1[i];
 		i++;
 	}
-	dst[REMAINDER_SIZE + i] = '\0';
-	return (REMAINDER_SIZE + str_len);
+	j = 0;
+	while (s2[j])
+	{
+		newstr[i + j] = s2[j];
+		j++;
+	}
+	newstr[i + j] = '\0';
+	return (newstr);
+}
+
+size_t	ft_strlen(const char *str)
+{
+	size_t	len;
+
+	len = 0;
+	while (*str++)
+		len++;
+	return (len);
 }
