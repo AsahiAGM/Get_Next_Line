@@ -20,6 +20,7 @@ void process_file(const char *filename)
         write(1, line, strlen(line));
         free(line);
     }
+
     close(fd);
 }
 
