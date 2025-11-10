@@ -10,25 +10,29 @@
 char	*read_and_store(int fd, char *remainder)
 {
     char    buf[BUFFER_SIZE + 1];
-    char    ch;
+    int		bytes;
     int     i;
 
-    i = 0;
-    while (i < BUFFER_SIZE)
+	if (!remainder)
+	{
+		remainder = malloc(1);
+		if (!remainder)
+			return (NULL);
+		remainder[0] = '\0';
+	}
+	bytes = 1;
+    while (bytes > 0)
     {
-        ch = read(fd, buf[i], 1);
-        if (ch == '\n')
-            break;;
-        i++;
+		i = 0;
+		bytes = read(fd, buf, BUFFER_SIZE);
+		if (bytes < 0)
+			return (NULL);
+		buf[bytes] = '\0';
+    	remainder = ft_strjoin(remainder, buf);
+		while (buf[i])
+			if (buf[i++] == '\n')
+				return (remainder);
     }
-    if (!remainder)
-    {
-        remainder = malloc(1);
-        if (!remainder)
-            return (NULL);
-        remainder[0] = '\0';
-    }
-    remainder = ft_strjoin(remainder, buf);
     return (remainder);
 }
 
@@ -40,8 +44,8 @@ char	*ft_strjoin(const char *s1, const char *s2)
 
 	if (!s1 || !s2)
 		return (NULL);
-	newstr = (char *)malloc(sizeof(char) * (ft_strlen((char *)s1)
-				+ ft_strlen((char *)s2) + 1));
+	newstr = (char *)malloc(sizeof(char) * (ft_strlen(s1)
+				+ ft_strlen(s2) + 1));
 	if (!newstr)
 		return (NULL);
 	i = 0;
@@ -57,6 +61,7 @@ char	*ft_strjoin(const char *s1, const char *s2)
 		j++;
 	}
 	newstr[i + j] = '\0';
+	free(s1);
 	return (newstr);
 }
 
