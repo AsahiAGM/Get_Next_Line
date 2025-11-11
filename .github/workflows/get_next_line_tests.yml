@@ -17,7 +17,7 @@ jobs:
       
       # コンパイル
       - name: Compile test program
-        run: gcc -Wall -Wextra -Werror -g get_next_line.c get_next_line_util.c .test.c -o a.out
+        run: gcc -Wall -Wextra -Werror -g get_next_line.c get_next_line_utils.c .test.c -o a.out
 
       # 実行
       - name: Run tests
