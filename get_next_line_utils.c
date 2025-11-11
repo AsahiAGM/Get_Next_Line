@@ -36,6 +36,44 @@ char	*read_and_store(int fd, char *remainder)
     return (remainder);
 }
 
+char	*extract_line(char **remainder)
+{
+	size_t	i;
+	size_t	ri;
+	char	*line;
+
+	i = 0;
+	ri = 0;
+	if (!*remainder || !(*remainder)[0])
+		return (NULL);
+	while ((*remainder)[i] && (*remainder)[i] != '\n')
+		i++;
+	line = (char *)malloc(sizeof(char) * (i + 2));
+	if (!line)
+		return (NULL);
+	while (ri < i)
+		line[ri] = (*remainder)[ri];
+	if ((*remainder)[i] == '\n')
+		line[i++] = '\n'; 
+	line[i] = '\0';
+	*remainder += i;
+	return (line);
+}
+
+char	*update_remainder(char *remainder)
+{
+	size_t	len;
+	size_t	i;
+	char	*buf;
+
+	len = ft_strlen(remainder);
+	free(remainder);
+	while (i < len)
+	{
+		
+	}
+}
+
 char	*ft_strjoin(const char *s1, const char *s2)
 {
 	char	*newstr;
