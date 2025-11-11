@@ -1,0 +1,26 @@
+name: Get_Next_Line Tests
+run-name: test Get_Next_Line
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    brabches:
+      - main
+jobs:
+  test_get_next_line:
+    runs-on: ubuntu-latest
+    steps:
+      # リポジトリのコードを取得
+      - name: Checkout code
+        uses: actions/checkout@v5
+      
+      # コンパイル
+      - name: Compile test program
+        run: gcc -Wall -Wextra -Werror -g get_next_line.c get_next_line_util.c .test.c -o a.out
+
+      # 実行
+      - name: Run tests
+      - run: echo "--- run test ---\n"
+      - run: ./a.out
+      
