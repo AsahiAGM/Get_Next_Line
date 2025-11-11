@@ -5,7 +5,7 @@ on:
     branches:
       - main
   pull_request:
-    brabches:
+    branches:
       - main
 jobs:
   test_get_next_line:
@@ -21,6 +21,7 @@ jobs:
 
       # 実行
       - name: Run tests
-      - run: echo "--- run test ---\n"
-      - run: ./a.out
+        run: |
+          echo "--- run test ---\n"
+          ./a.out
       
