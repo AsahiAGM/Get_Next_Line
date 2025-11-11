@@ -11,6 +11,7 @@ char	*get_next_line(int fd)
 	if (!remainder)
 		return (NULL);
 	line = extract_line(remainder);
-	//remainder = update_remainder(remainder);
-	return (NULL);
+	if (line)
+		remainder = update_remainder(remainder);
+	return (line);
 }

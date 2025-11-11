@@ -36,7 +36,13 @@ char	*read_and_store(int fd, char *remainder)
     return (remainder);
 }
 
-char	*extract_line(char **remainder)
+/*
+* Read from the buffer until a newline or EOF is found,
+* then dump as much as you read.
+* @param *remainder buffer of reading char
+* @return new line
+*/
+char	*extract_line(char *remainder)
 {
 	size_t	i;
 	size_t	ri;
@@ -44,34 +50,53 @@ char	*extract_line(char **remainder)
 
 	i = 0;
 	ri = 0;
-	if (!*remainder || !(*remainder)[0])
+	if (!remainder || remainder[0])
 		return (NULL);
-	while ((*remainder)[i] && (*remainder)[i] != '\n')
+	while (remainder[i] && remainder[i] != '\n')
 		i++;
 	line = (char *)malloc(sizeof(char) * (i + 2));
 	if (!line)
 		return (NULL);
 	while (ri < i)
-		line[ri] = (*remainder)[ri];
-	if ((*remainder)[i] == '\n')
+		line[ri] = remainder[ri];
+	if (remainder[i] == '\n')
 		line[i++] = '\n'; 
 	line[i] = '\0';
-	*remainder += i;
 	return (line);
 }
 
+/*
+* Among the remainder, dump the characters from the newline
+* to the null character and update remainder.
+* @param *remainder current remainder
+* @return new remainder
+*/
 char	*update_remainder(char *remainder)
 {
 	size_t	len;
-	size_t	i;
+	size_t	src;
+	size_t	dst;
 	char	*buf;
 
 	len = ft_strlen(remainder);
-	free(remainder);
-	while (i < len)
+	src = 0;
+	while (remainder[src] && remainder[src] != '\n')
+		src++;
+	if (!remainder[src])
 	{
-		
+		free(remainder);
+		return (NULL);
 	}
+	src++;
+	buf = (char *)malloc(sizeof(char) * (len - src + 1));
+	if(!buf)
+		return (NULL);
+	dst = 0;
+	while (remainder[src])
+		buf[dst++] = remainder[src++];
+	buf[dst] = '\0';
+	free(remainder);
+	return (buf);
 }
 
 char	*ft_strjoin(const char *s1, const char *s2)

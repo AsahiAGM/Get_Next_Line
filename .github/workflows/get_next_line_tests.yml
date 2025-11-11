@@ -22,6 +22,6 @@ jobs:
       # 実行
       - name: Run tests
         run: |
-          echo "--- run test ---\n"
+          echo "--- run test ---"
           ./a.out
       
