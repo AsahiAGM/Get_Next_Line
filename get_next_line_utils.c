@@ -10,29 +10,29 @@
 char	*read_and_store(int fd, char *remainder)
 {
     char    buf[BUFFER_SIZE + 1];
-    int		bytes;
-    int     i;
+    char    *buf_ptr;
+    int     bytes;
 
 	if (!remainder)
-	{
-		remainder = malloc(1);
-		if (!remainder)
-			return (NULL);
-		remainder[0] = '\0';
-	}
+        remainder = malloc(1);
+    if (!remainder)
+        return (NULL);
+    remainder[0] = '\0';
 	bytes = 1;
     while (bytes > 0)
     {
-		i = 0;
-		bytes = read(fd, buf, BUFFER_SIZE);
+		buf_ptr = buf;
+		bytes = read(fd, buf_ptr, BUFFER_SIZE);
 		if (bytes < 0)
-			return (NULL);
+            break ;
 		buf[bytes] = '\0';
-    	remainder = ft_strjoin(remainder, buf);
-		while (buf[i])
-			if (buf[i++] == '\n')
+        remainder = ft_strjoin(remainder, buf);
+		while (*(buf_ptr++))
+			if (*buf_ptr == '\n')
 				return (remainder);
     }
+    if (bytes < 0)
+        free(remainder);
     return (remainder);
 }
 

@@ -9,6 +9,8 @@ a.out.dSYM
 # .main.c
 # .test.c
 # .monotest.c
+# .github
+# .github/
 
 # .src
 # .src/
