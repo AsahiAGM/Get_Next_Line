@@ -1,31 +1,33 @@
 #include "get_next_line.h"
 #include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
+// #include <fcntl.h>
+// #include <unistd.h>
+// #include <string.h>
+// #include <stdlib.h>
 
-void process_file(const char *filename)
-{
-    int fd = open(filename, O_RDONLY);
-    if (fd == -1)
-    {
-        perror(filename);
-        return;
-    }
+// void process_file(const char *filename)
+// {
+//     int fd = open(filename, O_RDONLY);
+//     if (fd == -1)
+//     {
+//         perror(filename);
+//         return;
+//     }
 
-    char *line;
-    while ((line = get_next_line(fd)) != NULL)
-    {
-        write(1, line, strlen(line));
-        free(line);
-    }
+//     char *line;
+//     while ((line = get_next_line(fd)) != NULL)
+//     {
+//         write(1, line, strlen(line));
+//         free(line);
+//     }
 
-    close(fd);
-}
+//     close(fd);
+// }
 
 int main(int argc, char **argv)
 {
+    (void)argc;
+    (void)argv;
     printf("hello, github actions!!");
     // if (argc > 1)
     // {

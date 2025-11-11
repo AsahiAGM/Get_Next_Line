@@ -61,7 +61,7 @@ char	*ft_strjoin(const char *s1, const char *s2)
 		j++;
 	}
 	newstr[i + j] = '\0';
-	free(s1);
+	free((void *)s1);
 	return (newstr);
 }
 
