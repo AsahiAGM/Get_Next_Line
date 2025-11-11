@@ -13,5 +13,10 @@ char	*get_next_line(int fd)
 	line = extract_line(remainder);
 	if (line)
 		remainder = update_remainder(remainder);
+	if (remainder && remainder[0] == '\0')
+	{
+		free(remainder);
+		remainder = NULL;
+	}
 	return (line);
 }

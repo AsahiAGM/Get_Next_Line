@@ -9,31 +9,31 @@
 */
 char	*read_and_store(int fd, char *remainder)
 {
-    char    buf[BUFFER_SIZE + 1];
-    char    *buf_ptr;
-    int     bytes;
+	char	buf[BUFFER_SIZE + 1];
+	int		bytes;
+	size_t	j;
 
 	if (!remainder)
-        remainder = malloc(1);
-    if (!remainder)
-        return (NULL);
-    remainder[0] = '\0';
+	{
+		remainder = malloc(1);
+		if (!remainder)
+			return (NULL);
+		remainder[0] = '\0';
+	}
 	bytes = 1;
-    while (bytes > 0)
-    {
-		buf_ptr = buf;
-		bytes = read(fd, buf_ptr, BUFFER_SIZE);
+	while (bytes > 0)
+	{
+		bytes = read(fd, buf, BUFFER_SIZE);
 		if (bytes < 0)
-            break ;
+			return (free(remainder), NULL);
 		buf[bytes] = '\0';
-        remainder = ft_strjoin(remainder, buf);
-		while (*(buf_ptr++))
-			if (*buf_ptr == '\n')
+		remainder = ft_strjoin(remainder, buf);
+		j = 0;
+		while (j < ft_strlen(buf))
+			if (buf[j++] == '\n')
 				return (remainder);
-    }
-    if (bytes < 0)
-        free(remainder);
-    return (remainder);
+	}
+	return (remainder);
 }
 
 /*
@@ -50,7 +50,7 @@ char	*extract_line(char *remainder)
 
 	i = 0;
 	ri = 0;
-	if (!remainder || remainder[0])
+	if (!remainder || !remainder[0])
 		return (NULL);
 	while (remainder[i] && remainder[i] != '\n')
 		i++;
@@ -58,7 +58,10 @@ char	*extract_line(char *remainder)
 	if (!line)
 		return (NULL);
 	while (ri < i)
+	{
 		line[ri] = remainder[ri];
+		ri++;
+	}
 	if (remainder[i] == '\n')
 		line[i++] = '\n'; 
 	line[i] = '\0';
@@ -99,11 +102,11 @@ char	*update_remainder(char *remainder)
 	return (buf);
 }
 
-char	*ft_strjoin(const char *s1, const char *s2)
+char	*ft_strjoin(char *s1, const char *s2)
 {
 	char	*newstr;
-	size_t	i;
-	size_t	j;
+	int		i;
+	int		j;
 
 	if (!s1 || !s2)
 		return (NULL);
