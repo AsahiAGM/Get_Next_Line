@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v5
       
       # 実行
-      - name: compile and run test
-        run: ../../gnl.sh
+      - name: Compile and Run test
+        run: ./gnl.sh
         shell: bash
       
