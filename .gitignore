@@ -6,17 +6,18 @@
 # debug files
 a.out
 a.out.dSYM
+.test.c
+.monotest.c
+# gnl.sh
 # .main.c
-# .test.c
-# .monotest.c
 # .github
 # .github/
-
 # .src
 # .src/
 # .srcA.txt
 # .srcB.txt
 # .srcC.txt
+# README.md
 
 # extra files
 *.o

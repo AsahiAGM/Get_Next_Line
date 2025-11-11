@@ -41,7 +41,7 @@ int main(void)
             write(1, line, ft_strlen(line));
             free(line);
         }
-        write(1, "\n", 1);
+        write(1, "\n\n", 3);
         close(fd_in);
         close(fd_out);
         i++;

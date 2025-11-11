@@ -7,7 +7,7 @@ if [[ "$OS" == "Linux" ]]; then
     # Linux用の実行
     valgrind --track-origins=yes --track-fds=yes --leak-check=full --show-leak-kinds=all --errors-for-leak-kinds=all ./a.out
 else
-    # macOS用の実行(Linux以外だと valgrind が使えないため)
+    # macOS用の実行(Linux環境以外だと valgrind が使えないため)
     ./a.out
 fi
 
@@ -22,3 +22,4 @@ echo
 rm output_1.txt
 rm output_2.txt
 rm output_3.txt
+rm a.out
