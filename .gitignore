@@ -6,9 +6,9 @@
 # debug files
 a.out
 a.out.dSYM
-.test.c
 .testlog.txt
-#.monotest.c
+
+#.test.c
 #.runtest.c
 # gnl.sh
 # .main.c
