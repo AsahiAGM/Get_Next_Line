@@ -7,7 +7,9 @@
 a.out
 a.out.dSYM
 .test.c
-.monotest.c
+.testlog.txt
+#.monotest.c
+#.runtest.c
 # gnl.sh
 # .main.c
 # .github

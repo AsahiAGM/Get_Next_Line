@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                             :+:      :+:    :+:    */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahamaguc <ahamaguc@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/20 14:30:20 by ahamaguc          #+#    #+#             */
+/*   Updated: 2025/10/24 17:04:11 by ahamaguc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 /*
@@ -63,7 +75,7 @@ char	*extract_line(char *remainder)
 		ri++;
 	}
 	if (remainder[i] == '\n')
-		line[i++] = '\n'; 
+		line[i++] = '\n';
 	line[i] = '\0';
 	return (line);
 }
@@ -92,7 +104,7 @@ char	*update_remainder(char *remainder)
 	}
 	src++;
 	buf = (char *)malloc(sizeof(char) * (len - src + 1));
-	if(!buf)
+	if (!buf)
 		return (NULL);
 	dst = 0;
 	while (remainder[src])

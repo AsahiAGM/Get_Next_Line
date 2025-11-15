@@ -1,11 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.h                                   :+:      :+:    :+:    */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahamaguc <ahamaguc@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/20 14:30:20 by ahamaguc          #+#    #+#             */
+/*   Updated: 2025/10/24 17:04:11 by ahamaguc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
 # include <stdlib.h>
 # include <unistd.h>
-
-# define BUFFER_SIZE 42
-# define REMAINDER_SIZE 4065
 
 // get_next_line.c
 char	*get_next_line(int fd);
