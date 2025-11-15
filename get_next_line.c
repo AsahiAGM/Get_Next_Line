@@ -19,6 +19,13 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
+	if (!remainder)
+	{
+		remainder = malloc(1);
+		if (!remainder)
+			return (NULL);
+		remainder[0] = '\0';
+	}
 	remainder = read_and_store(fd, remainder);
 	if (!remainder)
 		return (NULL);

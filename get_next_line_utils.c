@@ -22,24 +22,23 @@
 char	*read_and_store(int fd, char *remainder)
 {
 	char	buf[BUFFER_SIZE + 1];
+	char	*tmp;
 	int		bytes;
 	size_t	j;
 
-	if (!remainder)
-	{
-		remainder = malloc(1);
-		if (!remainder)
-			return (NULL);
-		remainder[0] = '\0';
-	}
 	bytes = 1;
 	while (bytes > 0)
 	{
 		bytes = read(fd, buf, BUFFER_SIZE);
 		if (bytes < 0)
 			return (free(remainder), NULL);
+		if (bytes == 0)
+			break ;
 		buf[bytes] = '\0';
-		remainder = ft_strjoin(remainder, buf);
+		tmp = ft_strjoin(remainder, buf);
+		if (!tmp)
+			return (free(remainder), NULL);
+		remainder = tmp;
 		j = 0;
 		while (j < ft_strlen(buf))
 			if (buf[j++] == '\n')
@@ -109,7 +108,7 @@ char	*update_remainder(char *remainder)
 		src++;
 	buf = (char *)malloc(sizeof(char) * (len - src + 1));
 	if (!buf)
-		return (NULL);
+		return (free(remainder), NULL);
 	dst = 0;
 	while (remainder[src])
 		buf[dst++] = remainder[src++];
