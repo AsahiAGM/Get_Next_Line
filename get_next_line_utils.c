@@ -66,7 +66,10 @@ char	*extract_line(char *remainder)
 		return (NULL);
 	while (remainder[i] && remainder[i] != '\n')
 		i++;
-	line = (char *)malloc(sizeof(char) * (i + 2));
+	if (remainder[i] == '\n')
+		line = (char *)malloc(sizeof(char) * (i + 2));
+	else
+		line = (char *)malloc(sizeof(char) * (i + 1));
 	if (!line)
 		return (NULL);
 	while (ri < i)
@@ -75,8 +78,8 @@ char	*extract_line(char *remainder)
 		ri++;
 	}
 	if (remainder[i] == '\n')
-		line[i++] = '\n';
-	line[i] = '\0';
+		line[ri++] = '\n';
+	line[ri] = '\0';
 	return (line);
 }
 
@@ -102,7 +105,8 @@ char	*update_remainder(char *remainder)
 		free(remainder);
 		return (NULL);
 	}
-	src++;
+	if (remainder[src] == '\n')
+		src++;
 	buf = (char *)malloc(sizeof(char) * (len - src + 1));
 	if (!buf)
 		return (NULL);
@@ -122,8 +126,8 @@ char	*ft_strjoin(char *s1, const char *s2)
 
 	if (!s1 || !s2)
 		return (NULL);
-	newstr = (char *)malloc(sizeof(char) *
-				(ft_strlen(s1) + ft_strlen(s2) + 1));
+	newstr = (char *)malloc(
+			sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!newstr)
 		return (NULL);
 	i = 0;
