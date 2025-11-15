@@ -18,12 +18,13 @@ void process_file(const char *filename)
     write(1, "\n<< ", 5);
     write(1, filename, strlen(filename));
     write(1, " >>\n", 5);
+    write(1, "[gnl process]\n", 15);
     while ((line = get_next_line(fd)) != NULL)
     {
         write(1, line, strlen(line));
         free(line);
     }
-    write(1, "\n", 1);
+    write(1, "[gnl process]\n", 15);
     close(fd);
 }
 

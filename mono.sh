@@ -8,5 +8,5 @@ if [[ "$OS" == "Linux" ]]; then
     valgrind --track-origins=yes --track-fds=yes --leak-check=full --show-leak-kinds=all --errors-for-leak-kinds=all ./a.out $@
 else
     # macOS用の実行(Linux環境以外だと valgrind が使えないため)
-    ./a.out $@
+    leaks --atExit -- ./a.out $@
 fi
