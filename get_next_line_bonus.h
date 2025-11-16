@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                   :+:      :+:    :+:    */
+/*   get_next_line.h                                   :+:      :+:    :+:    */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahamaguc <ahamaguc@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,31 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
-char	*get_next_line(int fd)
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 6
+# endif
+
+# include <unistd.h>
+# include <stdlib.h>
+# define MAX_FD 1024
+
+typedef struct s_remainder
 {
-	static t_remainder	remainder;
-	char				*line;
+	char	*buffer;
+	size_t	tail;
+}	t_remainder;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	if (!remainder.buffer)
-	{
-		remainder.buffer = malloc(1);
-		if (!remainder.buffer)
-			return (NULL);
-		remainder.buffer[0] = '\0';
-	}
-	remainder.buffer = read_and_store(fd, &remainder);
-	if (!remainder.buffer)
-		return (NULL);
-	line = extract_line(remainder.buffer);
-	if (!line)
-	{
-		remainder.buffer = NULL;
-		return (NULL);
-	}
-	remainder.buffer = update_remainder(remainder.buffer);
-	return (line);
-}
+// get_next_line.c
+char	*get_next_line(int fd);
+
+// get_next_line_utils.c
+char	*read_and_store(int fd, t_remainder *remainder);
+char	*extract_line(char *remainder);
+char	*update_remainder(char *remainder);
+char	*ft_strjoin(t_remainder *s1, const char *s2, int src_len);
+char	*ft_strchr(const char *s, int c);
+
+#endif

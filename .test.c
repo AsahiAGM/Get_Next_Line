@@ -58,3 +58,36 @@ int main(int argc, char **argv)
 
     return 0;
 }
+
+// // cluade版 GNL
+// char	*get_next_line(int fd)
+// {
+// 	static char	*remainder;
+// 	char		*line;
+// 	char		*new_remainder;
+
+// 	if (fd < 0 || BUFFER_SIZE <= 0)
+// 		return (NULL);
+// 	if (!remainder)
+// 	{
+// 		remainder = malloc(1);
+// 		if (!remainder)
+// 			return (NULL);
+// 		remainder[0] = '\0';
+// 	}
+// 	new_remainder = read_and_store(fd, remainder);
+// 	if (!new_remainder)
+// 	{
+// 		remainder = NULL;
+// 		return (NULL);
+// 	}
+// 	remainder = new_remainder;
+// 	line = extract_line(remainder);
+// 	if (!line)
+// 	{
+// 		remainder = NULL;
+// 		return (NULL);
+// 	}
+// 	remainder = update_remainder(remainder);
+// 	return (line);
+// }

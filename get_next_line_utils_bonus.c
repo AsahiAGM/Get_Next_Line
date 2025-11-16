@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 /*
 * Read from file until a newline or EOF is found,
@@ -31,7 +31,7 @@ char	*read_and_store(int fd, t_remainder *remainder)
 	while (bytes > 0)
 	{
 		if (bytes < 0)
-			break ;
+			return (free(remainder->buffer), free(buf), NULL);
 		buf[bytes] = '\0';
 		remainder->buffer = ft_strjoin(remainder, buf, bytes);
 		if (!remainder->buffer)

@@ -10,31 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*get_next_line(int fd)
 {
-	static t_remainder	remainder;
+	static t_remainder	remainder[MAX_FD];
 	char				*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= MAX_FD || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!remainder.buffer)
+	if (!remainder[fd].buffer)
 	{
-		remainder.buffer = malloc(1);
-		if (!remainder.buffer)
+		remainder[fd].buffer = malloc(1);
+		if (!remainder[fd].buffer)
 			return (NULL);
-		remainder.buffer[0] = '\0';
+		remainder[fd].buffer[0] = '\0';
 	}
-	remainder.buffer = read_and_store(fd, &remainder);
-	if (!remainder.buffer)
+	remainder[fd].buffer = read_and_store(fd, &remainder[fd]);
+	if (!remainder[fd].buffer)
 		return (NULL);
-	line = extract_line(remainder.buffer);
+	line = extract_line(remainder[fd].buffer);
 	if (!line)
 	{
-		remainder.buffer = NULL;
+		remainder[fd].buffer = NULL;
 		return (NULL);
 	}
-	remainder.buffer = update_remainder(remainder.buffer);
+	remainder[fd].buffer = update_remainder(remainder[fd].buffer);
 	return (line);
 }

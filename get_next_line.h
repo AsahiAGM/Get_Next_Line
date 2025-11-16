@@ -14,20 +14,26 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 6
 # endif
 
-# include <stdlib.h>
 # include <unistd.h>
+# include <stdlib.h>
+
+typedef struct s_remainder
+{
+	char	*buffer;
+	size_t	tail;
+}	t_remainder;
 
 // get_next_line.c
 char	*get_next_line(int fd);
 
 // get_next_line_utils.c
-char	*read_and_store(int fd, char *remainder);
+char	*read_and_store(int fd, t_remainder *remainder);
 char	*extract_line(char *remainder);
 char	*update_remainder(char *remainder);
-char	*ft_strjoin(char *s1, const char *s2);
-size_t	ft_strlen(const char *str);
+char	*ft_strjoin(t_remainder *s1, const char *s2, int src_len);
+char	*ft_strchr(const char *s, int c);
 
 #endif

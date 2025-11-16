@@ -40,3 +40,24 @@ extract_line で切り出した後の残りを 再度 remainder として保持
 
 EOF に達して残りがなければ free して NULL にする
 次回呼び出し時に read_and_store で再利用
+
+## BONUSについて
+### 複数のファイルに対応したremainderを用意する
+`char *remainder[MAX_FD] (# define MAX_FD 1024)`とすることで、複数ファイル(のfd)に対応したポインタを用意し、GNLの引数に応じて参照するremainderを切り替えるようにした
+
+- _SC_OPEN_MAX と _SC_MQ_OPEN_MAX の違い
+```bash
+_SC_OPEN_MAX
+意味：プロセスが同時に開くことのできる ファイルディスクリプタの最大数
+getrlimit(RLIMIT_NOFILE, …) と同じ制限を参照することが多い
+sysconf(_SC_OPEN_MAX) で取得可能
+例：標準的な Linux では 1024 や 4096 など
+
+_SC_MQ_OPEN_MAX
+意味：プロセスが同時に開くことのできる POSIX メッセージキュー (message queue) の最大数
+メッセージキュー専用で、ファイルディスクリプタとは別扱い
+例：Linux では 10 や 32 など小さい値になることが多い
+
+!!
+ただしfrancinetteでは _SC_OPEN_MAX を利用するとエラーになる（おそらく未定義扱いになる）ので、実行は失敗してしまう。
+```
