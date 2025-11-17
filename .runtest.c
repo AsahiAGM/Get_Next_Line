@@ -38,7 +38,7 @@ int main(void)
         char *line;
         while ((line = get_next_line(fd_in)) != NULL)
         {
-            write(1, line, ft_strlen(line));
+            write(1, line, strlen(line));
             free(line);
         }
         write(1, "\n\n", 3);
