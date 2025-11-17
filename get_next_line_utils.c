@@ -30,17 +30,17 @@ char	*read_and_store(int fd, t_remainder *remainder)
 	bytes = read(fd, buf, BUFFER_SIZE);
 	while (bytes > 0)
 	{
-		if (bytes < 0)
-			break ;
 		buf[bytes] = '\0';
 		remainder->buffer = ft_strjoin(remainder, buf, bytes);
 		if (!remainder->buffer)
 			return (free(buf), NULL);
-		if (ft_strchr(buf, '\n'))
+		if (ft_strrchr(buf, '\n', bytes))
 			return (free(buf), remainder->buffer);
 		bytes = read(fd, buf, BUFFER_SIZE);
 	}
 	free(buf);
+	if (bytes < 0)
+		return (free(remainder->buffer), NULL);
 	if (!remainder->buffer || remainder->buffer[0] == '\0')
 		return (free(remainder->buffer), NULL);
 	return (remainder->buffer);
@@ -61,7 +61,7 @@ char	*extract_line(char *remainder)
 	end = 0;
 	ri = 0;
 	if (!remainder || remainder[0] == '\0')
-		return (NULL);
+		return (free(remainder), NULL);
 	while (remainder[end] && remainder[end] != '\n')
 		end++;
 	if (remainder[end] == '\n')
@@ -87,69 +87,60 @@ char	*extract_line(char *remainder)
 * @param *remainder current remainder
 * @return new remainder
 */
-char	*update_remainder(char *remainder)
+char	*update_remainder(t_remainder *remainder)
 {
-	size_t	len;
 	size_t	src;
 	size_t	dst;
 	char	*buf;
 
-	if (!remainder)
+	if (!remainder->buffer)
 		return (NULL);
 	src = 0;
-	while (remainder[src] && remainder[src] != '\n')
+	while (remainder->buffer[src] && remainder->buffer[src] != '\n')
 		src++;
-	if (remainder[src] == '\0')
-		return (free(remainder), NULL);
+	if (remainder->buffer[src] == '\0')
+		return (free(remainder->buffer), remainder->tail = 0, NULL);
 	src++;
-	len = 0;
-	while (remainder[len])
-		len++;
-	buf = (char *)malloc(sizeof(char) * (len - src + 1));
+	buf = malloc(sizeof(char) * (remainder->tail - src + 1));
 	if (!buf)
-		return (free(remainder), NULL);
+		return (free(remainder->buffer), remainder->tail = 0, NULL);
 	dst = 0;
-	while (remainder[src])
-		buf[dst++] = remainder[src++];
+	while (remainder->buffer[src])
+		buf[dst++] = remainder->buffer[src++];
 	buf[dst] = '\0';
-	free(remainder);
-	return (buf);
+	return (free(remainder->buffer), remainder->tail = dst, buf);
 }
 
-char	*ft_strjoin(t_remainder *s1, const char *s2, int src_len)
+char	*ft_strjoin(t_remainder *rem, const char *src, int src_len)
 {
 	char	*newstr;
-	int		dst;
-	int		src;
+	int		d;
+	int		s;
 
-	if (!s1->buffer || !s2)
+	if (!rem->buffer || !src)
 		return (NULL);
-	newstr = (char *)malloc(sizeof(char) * (s1->tail + src_len + 1));
+	newstr = (char *)malloc(sizeof(char) * (rem->tail + src_len + 1));
 	if (!newstr)
-		return (free(s1->buffer), NULL);
-	dst = -1;
-	while (s1->buffer[++dst])
-		newstr[dst] = s1->buffer[dst];
-	src = -1;
-	while (s2[++src])
-		newstr[dst + src] = s2[src];
-	newstr[dst + src] = '\0';
-	s1->tail = s1->tail + src_len + 1;
-	return (free(s1->buffer), newstr);
+		return (free(rem->buffer), NULL);
+	d = -1;
+	while (rem->buffer[++d])
+		newstr[d] = rem->buffer[d];
+	s = -1;
+	while (src[++s])
+		newstr[d + s] = src[s];
+	newstr[d + s] = '\0';
+	rem->tail = rem->tail + src_len;
+	return (free(rem->buffer), newstr);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strrchr(const char *s, int c, int bytes)
 {
-	size_t	i;
-
-	i = 0;
-	while (1)
+	bytes -= 1;
+	while (bytes >= 0)
 	{
-		if (s[i] == (unsigned char )c)
-			return ((char *)(s + i));
-		if (s[i] == '\0')
-			break ;
-		i++;
+		if (s[bytes] == (unsigned char)c)
+			return ((char *)(s + bytes));
+		bytes--;
 	}
 	return (NULL);
 }

@@ -8,17 +8,17 @@ a.out
 a.out.dSYM
 .testlog.txt
 
-#.test.c
-#.runtest.c
+# .test.c
+# .test_bonus.c
+# .runtest.c
 # gnl.sh
+# mono.sh
+# mono_bonus.sh
 # .main.c
 # .github
 # .github/
 # .src
 # .src/
-# .srcA.txt
-# .srcB.txt
-# .srcC.txt
 # README.md
 
 # extra files

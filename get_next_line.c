@@ -25,6 +25,7 @@ char	*get_next_line(int fd)
 		if (!remainder.buffer)
 			return (NULL);
 		remainder.buffer[0] = '\0';
+		remainder.tail = 0;
 	}
 	remainder.buffer = read_and_store(fd, &remainder);
 	if (!remainder.buffer)
@@ -35,6 +36,6 @@ char	*get_next_line(int fd)
 		remainder.buffer = NULL;
 		return (NULL);
 	}
-	remainder.buffer = update_remainder(remainder.buffer);
+	remainder.buffer = update_remainder(&remainder);
 	return (line);
 }

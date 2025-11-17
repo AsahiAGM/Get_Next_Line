@@ -9,8 +9,7 @@
 int main(void)
 {
     const char *files[FILE_COUNT] = {
-        ".src/giant_line.txt"
-        // ".src/.srcB.txt",
+        ".src/.10nl.txt",
         // ".src/.srcC.txt"
     };
     int fds[FILE_COUNT];

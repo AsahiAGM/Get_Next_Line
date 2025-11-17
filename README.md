@@ -29,6 +29,44 @@ read(fd, buf, BUFFER_SIZE) をループ
 ```
 という流れになります。
 
+```c
+/*
+* Read from file until a newline or EOF is found,
+* and append the read content to the given pointer.
+* @param fd         file id
+* @param *remainder buffer of reading char
+* @return new remainder
+*/
+char	*read_and_store(int fd, t_remainder *remainder)
+{
+	char	*buf;
+	int		bytes;
+
+	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buf)
+		return (free(remainder->buffer), NULL);
+	bytes = read(fd, buf, BUFFER_SIZE);
+	while (bytes > 0)
+	{
+		buf[bytes] = '\0';
+		remainder->buffer = ft_strjoin(remainder, buf, bytes);
+		if (!remainder->buffer)
+			return (free(buf), NULL);
+		if (ft_strchr(buf, '\n'))
+			return (free(buf), remainder->buffer);
+		bytes = read(fd, buf, BUFFER_SIZE);
+	}
+    // read = -1,読み込みエラー と 0,EOF のときの処理
+    // -1, 読み込みエラーの時はそこでGNLのプロセスを中断、static変数もリセットする
+    // 0, の時は、remainderに描画候補が無いときだけ解放
+	if (bytes < 0)
+		return (free(remainder->buffer), NULL);
+	if (!remainder->buffer || remainder->buffer[0] == '\0')
+		return (free(remainder->buffer), NULL);
+	return (remainder->buffer);
+}
+```
+
 3. `extract_line(remainder)`
 remainder から 1行分（改行まで、改行を含める場合もあり）を切り出す
 

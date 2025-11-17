@@ -35,6 +35,6 @@ char	*get_next_line(int fd)
 		remainder[fd].buffer = NULL;
 		return (NULL);
 	}
-	remainder[fd].buffer = update_remainder(remainder[fd].buffer);
+	remainder[fd].buffer = update_remainder(&remainder[fd]);
 	return (line);
 }
