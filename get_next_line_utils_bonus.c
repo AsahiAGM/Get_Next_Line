@@ -113,26 +113,26 @@ char	*update_remainder(t_remainder *remainder)
 	return (buf);
 }
 
-char	*ft_strjoin(t_remainder *s1, const char *s2, int src_len)
+char	*ft_strjoin(t_remainder *rem, const char *src, int src_len)
 {
 	char	*newstr;
-	int		dst;
-	int		src;
+	int		d;
+	int		s;
 
-	if (!s1->buffer || !s2)
+	if (!rem->buffer || !src)
 		return (NULL);
-	newstr = (char *)malloc(sizeof(char) * (s1->tail + src_len + 1));
+	newstr = (char *)malloc(sizeof(char) * (rem->tail + src_len + 1));
 	if (!newstr)
-		return (free(s1->buffer), NULL);
-	dst = -1;
-	while (s1->buffer[++dst])
-		newstr[dst] = s1->buffer[dst];
-	src = -1;
-	while (s2[++src])
-		newstr[dst + src] = s2[src];
-	newstr[dst + src] = '\0';
-	s1->tail = s1->tail + src_len + 1;
-	return (free(s1->buffer), newstr);
+		return (free(rem->buffer), NULL);
+	d = -1;
+	while (rem->buffer[++d])
+		newstr[d] = rem->buffer[d];
+	s = -1;
+	while (src[++s])
+		newstr[d + s] = src[s];
+	newstr[d + s] = '\0';
+	rem->tail = rem->tail + src_len + 1;
+	return (free(rem->buffer), newstr);
 }
 
 char	*ft_strrchr(const char *s, int c, int bytes)

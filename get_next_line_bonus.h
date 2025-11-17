@@ -34,7 +34,7 @@ char	*get_next_line(int fd);
 char	*read_and_store(int fd, t_remainder *remainder);
 char	*extract_line(char *remainder);
 char	*update_remainder(t_remainder *remainder);
-char	*ft_strjoin(t_remainder *s1, const char *s2, int src_len);
+char	*ft_strjoin(t_remainder *rem, const char *src, int src_len);
 char	*ft_strrchr(const char *s, int c, int bytes);
 
 #endif
